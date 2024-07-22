@@ -15,6 +15,8 @@ export class AppComponent {
   developer: string='';
   constructor(private configService: ConfigService) {}
   ngOnInit() {
+    console.log('Checking window.__env:', (window as any).__env);
+
     // Type assertion to access global variables without a TypeScript interface
     const envConfig = (window as any).__env;
 
