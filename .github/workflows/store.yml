@@ -21,20 +21,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create assets directory
-        run: mkdir -p src/assets
-
-      - name: Print Environment Variables
-        run: |
-          echo "Admin: ${{ vars.Admin }}"
-          echo "Developer: ${{ vars.Developer }}"
-
       - name: Create runtime-config.js
         run: |
           echo "(function(window) { window.__env = window.__env || {}; window.__env.admin = '${{ vars.Admin }}'; window.__env.developer = '${{ vars.Developer }}'; }(this));" > src/assets/runtime-config.js
 
-      - name: Inspect runtime-config.js
-        run: cat src/assets/runtime-config.js
-
       - name: Build Angular project
-        run: npm run build --prod
+        run: npm run build -- --prod
+
+      - name: Verify runtime-config.js
+        run: cat dist/yml-github-action/browser/assets/runtime-config.js
+
+      - name: Deploy (if needed)
+        # Your deployment steps here
