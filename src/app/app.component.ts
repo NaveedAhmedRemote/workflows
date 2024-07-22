@@ -15,9 +15,19 @@ export class AppComponent {
   developer: string='';
   constructor(private configService: ConfigService) {}
   ngOnInit() {
-    this.admin = this.configService.admin;
-    this.developer = this.configService.developer;
+    // Type assertion to access global variables without a TypeScript interface
+    const envConfig = (window as any).__env;
+
+    this.admin = envConfig ? envConfig.admin : undefined;
+    this.developer = envConfig ? envConfig.developer : undefined;
+
     console.log('Admin:', this.admin);
     console.log('Developer:', this.developer);
+
+    this.admin = (window as any).__env?.admin;
+    this.developer = (window as any).__env?.developer;
+
+    console.log('Test Admin:', this.admin);
+    console.log('Test Developer:', this.developer);
   }
 }
