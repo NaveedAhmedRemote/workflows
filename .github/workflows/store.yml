@@ -21,22 +21,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create environment.prod.ts
-        env:
-          API_URL: ${{ secrets.SECRET_KEY }}
-          VARIABL_KEY: ${{vars.VARIABLE_KEY}}
+      - name: Echo environment variables
         run: |
-          mkdir -p src/environments
-          echo "export const environment = { production: true, apiUrl: '$API_URL', variable: '$VARIABL_KEY' };" > src/environments/environment.prod.ts
+          echo "Admin is ${{ vars.Admin }}"
+          echo "Developer is ${{ vars.Developer }}"
 
       - name: Build Angular project
         run: npm run build --prod
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel
-
-      - name: Deploy to Vercel
-        run: |
-          vercel --token ${{ secrets.VERCEL_TOKEN }} --prod --confirm
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          Admin: ${{ vars.Admin }}
+          Developer: ${{ vars.Developer }}
