@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Angular project
+      - name: Create runtime-config.js
         run: |
-          ADMIN=${{ vars.Admin }} DEVELOPER=${{ vars.Developer }} npm run build --prod
+          echo "(function(window) { window.__env = window.__env || {}; window.__env.admin = '${{ vars.Admin }}'; window.__env.developer = '${{ vars.Developer }}'; }(this));" > src/runtime-config.js
+
+      - name: Build Angular project
+        run: npm run build -- --prod
