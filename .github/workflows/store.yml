@@ -21,13 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Echo environment variables
-        run: |
-          echo "Admin is ${{ vars.Admin }}"
-          echo "Developer is ${{ vars.Developer }}"
-
       - name: Build Angular project
-        run: npm run build --prod
-        env:
-          Admin: ${{ vars.Admin }}
-          Developer: ${{ vars.Developer }}
+        run: |
+          ADMIN=${{ vars.Admin }} DEVELOPER=${{ vars.Developer }} npm run build --prod
