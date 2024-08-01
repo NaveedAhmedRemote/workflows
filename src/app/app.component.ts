@@ -17,19 +17,11 @@ export class AppComponent {
   ngOnInit() {
     console.log('Checking window.__env:', (window as any).__env);
 
-    // Type assertion to access global variables without a TypeScript interface
-    const envConfig = (window as any).__env;
-
-    this.admin = envConfig ? envConfig.admin : undefined;
-    this.developer = envConfig ? envConfig.developer : undefined;
+    // Access the global variables
+    this.admin = (window as any).__env.admin || '';
+    this.developer = (window as any).__env.developer || '';
 
     console.log('Admin:', this.admin);
     console.log('Developer:', this.developer);
-
-    this.admin = (window as any).__env?.admin;
-    this.developer = (window as any).__env?.developer;
-
-    console.log('Test Admin:', this.admin);
-    console.log('Test Developer:', this.developer);
   }
 }
