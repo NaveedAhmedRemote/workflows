@@ -29,7 +29,7 @@ jobs:
         run: npm run build -- --prod
 
       - name: Verify runtime-config.js
-        run: cat dist/yml-github-action/browser/assets/runtime-config.js
+        run: cat src/assets/runtime-config.js
 
       - name: Deploy (if needed)
-        # Your deployment steps here
+        # Add your deployment steps here
